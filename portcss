@@ -1,0 +1,334 @@
+<!doctype html>
+
+<html lang="en">
+
+<html>
+
+
+  <head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project-1</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/489ad34ef4.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lalezar:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Times New Roman:wght@400&display=swap"
+    />
+
+
+  </head>
+
+  <body>
+
+    <div id="header">
+      <div class="container">
+        <div class="logo">
+          <a href="#"><span>design</span></a>
+        </div>
+        <nav>
+          <ul id="sidemenu">
+            <li><a href="#header">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Service</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <i class="fa-solid fa-circle-xmark" onclick="closemenu()"></i>
+          </ul>
+          <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+        </nav>
+        <div class ="total">
+          <div class="image">
+        <img src="v3.png">
+        </div>
+        
+        <div class="bodyhead">
+        <div class="header-text">
+          <h1><span class="typing">WEB DESIGNER</span></h1>
+
+
+          <h3>
+            exploring the design <br>by creating <span>design</span> <br />
+             
+          </h3>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ------------------------------------------about-------------------------------- -->
+    <div id="about">
+      <div class="container">
+        <div class="row">
+          <div class="about-col-2">
+            <h1 class="sub-title">About Me</h1><br>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
+              quos voluptates nam, odio quidem obcaecati harum tenetur facere
+              inventore deleniti numquam. Aperiam, maiores. Suscipit debitis
+              itaque quia, voluptates ducimus explicabo placeat illum asperiores
+              neque autem harum ut adipisci natus id odio dicta similique
+              laudantium aliquid nisi. Iste placeat, rem eaque eveniet tempora
+              beatae modi laboriosam ducimus eum odit dignissimos illum? Non
+              reiciendis quo mollitia quisquam praesentium nihil magnam nemo
+              sequi eveniet facilis officia autem nesciunt cum dicta commodi
+              quaerat, omnis exercitationem fugit deleniti, molestiae culpa
+              aperiam soluta. Expedita distinctio pariatur optio, deleniti
+              temporibus quisquam laboriosam, voluptatum in, quae nobis esse.
+            </p>
+            <div class="tab-titles">
+              <p class="tab-links active-link" onclick="opentab('skills')">
+                Skills
+              </p>
+              <p class="tab-links" onclick="opentab('expirience')">
+                Experience
+              </p>
+              <p class="tab-links" onclick="opentab('education')">Education</p>
+            </div>
+            <div class="tab-contents active-tab" id="skills">
+              <ul>
+                <li><span>Web Developer</span><br />Developing Websites</li><br>
+                <li><span>UI/UX</span><br />Desining Web/App Interfaces</li><br>
+                <li><span>App Development</span><br />Building Android Apps</li>
+              </ul>
+            </div>
+            <div class="tab-contents" id="expirience">
+              <ul>
+                <li>
+                  <span>2022-Current</span><br />UI/UX Design Tranning at ARN
+                  Instuitue
+                </li>
+                <li>
+                  <span>2021-2022</span><br />Web Developer at Apple Web
+                  Development.
+                </li>
+                <li>
+                  <span>2020-2021</span><br />Internship at EasyMart eCommerce.
+                </li>
+              </ul>
+            </div>
+            <div class="tab-contents" id="education">
+              <ul>
+                <li><span>2020</span><br />UI/Ux Design at MNO Instuite</li>
+                <li><span>2021</span><br />HSEB From XYZ College.</li>
+                <li><span>2022</span><br />CSIT Form TU.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="about-col-1">
+            <div class="skills padd-15">
+              <div class="row">
+                <div class="skill-item padd-15">
+                  <h5>CSS</h5>
+                  <div class="progress">
+                    <div class="progress-in" style="width: 76%"></div>
+                    <div class="skill-percent">76%</div>
+                  </div>
+                </div>
+                <div class="skill-item padd-15">
+                  <h5>JS</h5>
+                  <div class="progress">
+                    <div class="progress-in" style="width: 60%"></div>
+                    <div class="skill-percent">60%</div>
+                  </div>
+                </div>
+                <div class="skill-item padd-15">
+                  <h5>HTML</h5>
+                  <div class="progress">
+                    <div class="progress-in" style="width: 92%"></div>
+                    <div class="skill-percent">92%</div>
+                  </div>
+                </div>
+                <div class="skill-item padd-15">
+                  <h5>PHP</h5>
+                  <div class="progress">
+                    <div class="progress-in" style="width: 47%"></div>
+                    <div class="skill-percent">47%</div>
+                  </div>
+                </div>
+                <div class="skill-item padd-15">
+                  <h5>NODEJS</h5>
+                  <div class="progress">
+                    <div class="progress-in" style="width: 5%"></div>
+                    <div class="skill-percent">5%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a href="images/cv.pdf" download class="btn btn2">Download CV</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- ----------------------------------services--------------------------------------- -->
+
+    <div id="services">
+      <div class="container">
+        <h1 class="sub-title">My Services</h1>
+
+            <div class="services-list">
+                <div>
+                    <i class="fa-solid fa-code"></i>
+                    <h2>Web Development</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    <div class="more-content collapsed">
+                        <p>Additional details about web development services go here. This text is initially hidden and shown upon clicking "Show More".</p>
+                    </div>
+                    <a href="#" class="show-more-btn">Show More</a>
+                </div>
+                <!-- Add more service cards here -->
+            </div>
+        </div>
+        
+          <div>
+            <i class="fa-sharp fa-solid fa-crop-simple"></i>
+            <h2>UI/UX Designer</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt
+              praesentium tenetur, culpa excepturi laboriosam saepe consequatur
+              doloremque recusandae temporibus modi!
+            </p>
+
+            <a href="#">Learn more</a>
+          </div>
+          <div>
+            <i class="fa-brands fa-app-store-ios"></i>
+            <h2>App Designer</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt
+              praesentium tenetur, culpa excepturi laboriosam saepe consequatur
+              doloremque recusandae temporibus modi!
+            </p>
+
+            <a href="#">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -----------------------portfolio----------------------------------- -->
+
+    <div id="portfolio">
+      <div class="container">
+        <h1 class="sub-title">My Work</h1>
+        <div class="work-list">
+          <div class="work">
+            <img src="L1.png" alt="College Website" />
+            <div class="layer">
+              <h1>College Website</h1>
+              <p>
+                This project is a fully responsive college website, including features like an online admission portal and event management system.
+              </p>
+              <a href="project-details.html" class="btn">Learn More</a>
+            </div>
+          </div>
+          
+            </div>
+          </div>
+          <div class="work">
+            <img src="Frame 3.png" />
+            <div class="layer">
+              <h1>Animated template</h1>
+              <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem
+                eum reprehenderit maiores dolor cupiditate iste.
+              </p>
+              <i class="btn">see more</i
+              >
+            </div>
+          </div>
+          <div class="work">
+            <img src="bd.png" />
+            <div class="layer">
+              <h1>Online Shopping</h1>
+              <p>
+                designing the online shopping app
+              </p>
+              <i class="btn">learn more</i
+              >
+            </div>
+          </div>
+        </div>
+        <a href="#" class="btn">See more</a>
+      </div>
+    </div>
+
+    <!-- --------------------------------contact-------------------------------- -->
+    <div id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="contact-left">
+            <h1 class="sub-title">Contact Me</h1>
+            <p>
+              <i class="fa-sharp fa-solid fa-paper-plane"></i>
+             varundeep245@gmail.com
+            </p>
+            <p><i class="fa-solid fa-square-phone"></i> 9790637955</p>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/"
+                ><i class="fa-brands fa-facebook"></i
+              ></a>
+              <a href="https://www.twitter.com/"
+                ><i class="fa-brands fa-twitter-square"></i
+              ></a>
+              <a href="https://www.instagram.com/"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+              <a href="https://www.linkedin.com/"
+                ><i class="fa-brands fa-linkedin"></i
+              ></a>
+            </div>
+          </div>
+         
+          <div class="contact-right">
+            <form name="submit-to-google-sheet">
+              <input type="text" name="Name" placeholder="Your Name" required />
+              <input
+                type="email"
+                name="Email"
+                placeholder="Your Email"
+                required
+              /><br>
+              <br>
+              <button type="submit" class="button">Submit</button>
+            </form>
+            <span id="msg"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <p>Copyright &copy; All rights are reserved!</p>
+      </div>
+    </div>
+  
+   
+    <script src="backend.js"></script>
+
+      </form>
+     
+    
+
+  </body>
+</html>
+
+in this code just change the services portion alone for "see more" option 
+
