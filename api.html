@@ -72,54 +72,6 @@
       opacity: 0.95;
     }
 
-    .api-setup {
-      background: #FFF3CD;
-      border: 3px solid #FFE69C;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px;
-    }
-
-    .api-setup h3 {
-      color: #856404;
-      margin-bottom: 10px;
-    }
-
-    .api-setup input {
-      width: 100%;
-      padding: 10px;
-      border: 2px solid #FFE69C;
-      border-radius: 5px;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-
-    .api-setup button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      background: #28a745;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .api-setup button:hover {
-      background: #218838;
-    }
-
-    .api-setup .links {
-      margin-top: 15px;
-      font-size: 14px;
-    }
-
-    .api-setup .links a {
-      color: #007bff;
-      text-decoration: none;
-      margin-right: 15px;
-    }
-
     .content {
       padding: 40px;
     }
@@ -173,9 +125,6 @@
       color: #FF6B9D;
       margin-bottom: 20px;
       font-size: 24px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
     .form-group {
@@ -238,10 +187,6 @@
       box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
     }
 
-    .btn-primary:active {
-      transform: translateY(-1px);
-    }
-
     .btn-primary:disabled {
       opacity: 0.6;
       cursor: not-allowed;
@@ -277,11 +222,6 @@
       color: #FF6B9D;
       margin-bottom: 20px;
       font-size: 24px;
-    }
-
-    .image-result {
-      text-align: center;
-      margin-top: 20px;
     }
 
     .content-result {
@@ -376,11 +316,9 @@
       .header h1 {
         font-size: 32px;
       }
-
       .tabs {
         flex-direction: column;
       }
-
       .examples {
         grid-template-columns: 1fr;
       }
@@ -394,34 +332,60 @@
       <p>Create amazing images and stories for children!</p>
     </div>
 
-    <!-- API Key Setup -->
-    <div class="api-setup">
-      <h3>⚙️ Setup Hugging Face API Token</h3>
-      <p style="color: #856404; margin-bottom: 10px;">Enter your Hugging Face token to start creating stories!</p>
-      
-      <div style="margin-bottom: 15px;">
-        <input type="text" id="hfApiKey" placeholder="Enter your Hugging Face API token (hf_...)">
-        <button onclick="saveApiKey()">Save Token & Start Creating! 🚀</button>
-      </div>
-
-      <div class="links">
-        <strong>Need a token?</strong><br>
-        <a href="https://huggingface.co/settings/tokens" target="_blank">🤗 Get Free Hugging Face Token (Click "New Token" → "Read" access)</a>
-      </div>
-
-      <div id="apiStatus" style="margin-top: 10px; font-weight: bold;"></div>
-    </div>
-
     <div class="content">
-      <!-- Tabs -->
       <div class="tabs">
-        <button class="tab active" onclick="switchTab('story')">📚 Create Stories</button>
-        <button class="tab" onclick="switchTab('image')">🖼️ Generate Images</button>
+        <button class="tab active" onclick="switchTab('image')">🖼️ Generate Images</button>
+        <button class="tab" onclick="switchTab('story')">📚 Create Stories</button>
         <button class="tab" onclick="switchTab('both')">✨ Both Together</button>
       </div>
 
+      <!-- Image Generation Tab -->
+      <div id="imageTab" class="tab-content active">
+        <div class="section">
+          <h3>🎨 Generate Vector Image</h3>
+          
+          <div class="form-group">
+            <label>What do you want to create?</label>
+            <input type="text" id="imagePrompt" placeholder="E.g., A friendly dragon playing with toys">
+          </div>
+
+          <div class="form-group">
+            <label>Image Style</label>
+            <select id="imageStyle">
+              <option value="cartoon">Cartoon Style</option>
+              <option value="cute">Cute & Kawaii</option>
+              <option value="colorful">Colorful & Vibrant</option>
+              <option value="simple">Simple Vector</option>
+              <option value="storybook">Storybook Illustration</option>
+            </select>
+          </div>
+
+          <div class="examples">
+            <div class="example-chip" onclick="setImagePrompt('A cute unicorn with rainbow mane')">🦄 Unicorn</div>
+            <div class="example-chip" onclick="setImagePrompt('A friendly robot playing soccer')">🤖 Robot</div>
+            <div class="example-chip" onclick="setImagePrompt('A magical castle in the clouds')">🏰 Castle</div>
+            <div class="example-chip" onclick="setImagePrompt('A happy dinosaur eating ice cream')">🦕 Dinosaur</div>
+          </div>
+
+          <button class="btn btn-primary" onclick="generateImage()" id="generateImageBtn">
+            Generate Image Description ✨
+          </button>
+
+          <div class="loading" id="imageLoading">
+            <div class="spinner"></div>
+            <div class="loading-text">Creating your magical image... 🎨</div>
+          </div>
+
+          <div class="result-container" id="imageResult">
+            <h3>Your Image Description! 🎉</h3>
+            <div class="content-result" id="imageDisplay"></div>
+            <button class="download-btn" onclick="downloadImage()">Download Description 💾</button>
+          </div>
+        </div>
+      </div>
+
       <!-- Story Generation Tab -->
-      <div id="storyTab" class="tab-content active">
+      <div id="storyTab" class="tab-content">
         <div class="section">
           <h3>📚 Create a Story</h3>
           
@@ -474,51 +438,6 @@
         </div>
       </div>
 
-      <!-- Image Generation Tab -->
-      <div id="imageTab" class="tab-content">
-        <div class="section">
-          <h3>🎨 Generate Image Description</h3>
-          
-          <div class="form-group">
-            <label>What do you want to create?</label>
-            <input type="text" id="imagePrompt" placeholder="E.g., A friendly dragon playing with toys">
-          </div>
-
-          <div class="form-group">
-            <label>Image Style</label>
-            <select id="imageStyle">
-              <option value="cartoon">Cartoon Style</option>
-              <option value="cute">Cute & Kawaii</option>
-              <option value="colorful">Colorful & Vibrant</option>
-              <option value="simple">Simple Vector</option>
-              <option value="storybook">Storybook Illustration</option>
-            </select>
-          </div>
-
-          <div class="examples">
-            <div class="example-chip" onclick="setImagePrompt('A cute unicorn with rainbow mane')">🦄 Unicorn</div>
-            <div class="example-chip" onclick="setImagePrompt('A friendly robot playing soccer')">🤖 Robot</div>
-            <div class="example-chip" onclick="setImagePrompt('A magical castle in the clouds')">🏰 Castle</div>
-            <div class="example-chip" onclick="setImagePrompt('A happy dinosaur eating ice cream')">🦕 Dinosaur</div>
-          </div>
-
-          <button class="btn btn-primary" onclick="generateImage()" id="generateImageBtn">
-            Generate Description ✨
-          </button>
-
-          <div class="loading" id="imageLoading">
-            <div class="spinner"></div>
-            <div class="loading-text">Creating your magical image... 🎨</div>
-          </div>
-
-          <div class="result-container" id="imageResult">
-            <h3>Your Image Description! 🎉</h3>
-            <div class="image-result" id="imageDisplay"></div>
-            <button class="download-btn" onclick="downloadImage()">Download Description 💾</button>
-          </div>
-        </div>
-      </div>
-
       <!-- Both Together Tab -->
       <div id="bothTab" class="tab-content">
         <div class="section">
@@ -549,8 +468,8 @@
 
           <div class="result-container" id="bothResult">
             <h3>Your Story & Image! 🎉</h3>
-            <div class="image-result" id="bothImageDisplay"></div>
-            <div class="content-result" id="bothStoryDisplay" style="margin-top: 20px;"></div>
+            <div class="content-result" id="bothImageDisplay" style="margin-bottom: 20px;"></div>
+            <div class="content-result" id="bothStoryDisplay"></div>
             <div style="margin-top: 20px;">
               <button class="download-btn" onclick="downloadBothImage()">Download Image Description 💾</button>
               <button class="download-btn" onclick="downloadBothStory()">Download Story 💾</button>
@@ -562,37 +481,9 @@
   </div>
 
   <script>
-    let apiKey = '';
-
-    // Load saved API key
-    window.onload = function() {
-      const saved = localStorage.getItem('hfApiKey');
-      if (saved) {
-        apiKey = saved;
-        document.getElementById('hfApiKey').value = apiKey;
-        document.getElementById('apiStatus').innerHTML = '✅ Token loaded! Ready to create stories!';
-        document.getElementById('apiStatus').style.color = 'green';
-      }
-    };
-
-    function saveApiKey() {
-      const key = document.getElementById('hfApiKey').value.trim();
-      
-      if (!key) {
-        alert('Please enter an API token!');
-        return;
-      }
-
-      if (!key.startsWith('hf_')) {
-        alert('Invalid token format! Token should start with "hf_"');
-        return;
-      }
-
-      apiKey = key;
-      localStorage.setItem('hfApiKey', key);
-      document.getElementById('apiStatus').innerHTML = '✅ Token saved successfully! You can now create stories!';
-      document.getElementById('apiStatus').style.color = 'green';
-    }
+    const HF_API_KEY = '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';
+    const HF_API_URL = 'https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2';
+    const CORS_PROXY = 'https://corsproxy.io/?';
 
     function switchTab(tabName) {
       document.querySelectorAll('.tab-content').forEach(tab => {
@@ -601,7 +492,6 @@
       document.querySelectorAll('.tab').forEach(tab => {
         tab.classList.remove('active');
       });
-
       document.getElementById(tabName + 'Tab').classList.add('active');
       event.target.classList.add('active');
     }
@@ -614,12 +504,78 @@
       document.getElementById('storyTopic').value = topic;
     }
 
-    async function generateStory() {
-      if (!apiKey) {
-        alert('Please setup your Hugging Face token first!');
+    async function callHuggingFace(prompt, maxTokens = 500) {
+      const response = await fetch(CORS_PROXY + encodeURIComponent(HF_API_URL), {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${HF_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          inputs: prompt,
+          parameters: {
+            max_new_tokens: maxTokens,
+            temperature: 0.8,
+            top_p: 0.9,
+            do_sample: true,
+            return_full_text: false
+          }
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      if (data.estimated_time) {
+        throw new Error(`Model loading. Wait ${Math.ceil(data.estimated_time)}s and retry.`);
+      }
+
+      return data[0].generated_text.trim();
+    }
+
+    async function generateImage() {
+      const prompt = document.getElementById('imagePrompt').value;
+      const style = document.getElementById('imageStyle').value;
+
+      if (!prompt) {
+        alert('Please describe what you want to create!');
         return;
       }
 
+      document.getElementById('imageLoading').classList.add('show');
+      document.getElementById('imageResult').classList.remove('show');
+      document.getElementById('generateImageBtn').disabled = true;
+
+      try {
+        const fullPrompt = `Describe a detailed ${style} vector illustration for children: ${prompt}. Include vivid colors, characters, mood, and visual elements. Make it exciting and child-friendly.`;
+        
+        const description = await callHuggingFace(fullPrompt, 400);
+        
+        document.getElementById('imageDisplay').innerHTML = `
+          <strong>🎨 Image Description:</strong><br><br>
+          ${description}
+          <br><br>
+          <small style="color: #999;">💡 Use this description with DALL-E, Stable Diffusion, or Midjourney to create the actual image!</small>
+        `;
+        
+        document.getElementById('imageResult').classList.add('show');
+      } catch (error) {
+        alert('Error: ' + error.message + '\n\nMake sure you are running on localhost (python -m http.server 8000)');
+        console.error('Error:', error);
+      } finally {
+        document.getElementById('imageLoading').classList.remove('show');
+        document.getElementById('generateImageBtn').disabled = false;
+      }
+    }
+
+    async function generateStory() {
       const topic = document.getElementById('storyTopic').value;
       const type = document.getElementById('storyType').value;
       const age = document.getElementById('ageGroup').value;
@@ -634,51 +590,14 @@
       document.getElementById('generateStoryBtn').disabled = true;
 
       try {
-        const prompt = `Write a ${type} for children aged ${age} about: ${topic}. Make it engaging, age-appropriate, educational, with simple language and a positive message. Include dialogue and make it around 300-400 words. The story should be fun and easy to understand.`;
-
-        const response = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            inputs: prompt,
-            parameters: {
-              max_new_tokens: 600,
-              temperature: 0.9,
-              top_p: 0.95,
-              return_full_text: false
-            }
-          })
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || 'API request failed');
-        }
-
-        const data = await response.json();
+        const prompt = `Write a ${type} for children aged ${age} about: ${topic}. Make it fun, engaging, age-appropriate with simple language. Include dialogue. Around 300-400 words.`;
         
-        if (data.error) {
-          throw new Error(data.error);
-        }
-
-        let story = data[0].generated_text;
+        const story = await callHuggingFace(prompt, 600);
         
-        // Clean up the story
-        story = story.trim();
-
         document.getElementById('storyDisplay').textContent = story;
         document.getElementById('storyResult').classList.add('show');
       } catch (error) {
-        let errorMsg = 'Error: ' + error.message;
-        if (error.message.includes('rate limit') || error.message.includes('loading')) {
-          errorMsg += '\n\n💡 Tip: The model is loading. Please wait 20-30 seconds and try again!';
-        } else if (error.message.includes('Authorization')) {
-          errorMsg += '\n\nPlease check your API token is correct!';
-        }
-        alert(errorMsg);
+        alert('Error: ' + error.message + '\n\nMake sure you are running on localhost (python -m http.server 8000)');
         console.error('Error:', error);
       } finally {
         document.getElementById('storyLoading').classList.remove('show');
@@ -686,89 +605,7 @@
       }
     }
 
-    async function generateImage() {
-      if (!apiKey) {
-        alert('Please setup your Hugging Face token first!');
-        return;
-      }
-
-      const prompt = document.getElementById('imagePrompt').value;
-      const style = document.getElementById('imageStyle').value;
-
-      if (!prompt) {
-        alert('Please describe what you want to create!');
-        return;
-      }
-
-      document.getElementById('imageLoading').classList.add('show');
-      document.getElementById('imageResult').classList.remove('show');
-      document.getElementById('generateImageBtn').disabled = true;
-
-      try {
-        const enhancedPrompt = `Describe in vivid detail a ${style} illustration for children about: ${prompt}. The description should be colorful, exciting, and child-friendly. Describe the scene, characters, colors, mood, and all visual elements in detail.`;
-
-        const response = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            inputs: enhancedPrompt,
-            parameters: {
-              max_new_tokens: 400,
-              temperature: 0.9,
-              top_p: 0.95,
-              return_full_text: false
-            }
-          })
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || 'API request failed');
-        }
-
-        const data = await response.json();
-        
-        if (data.error) {
-          throw new Error(data.error);
-        }
-
-        let description = data[0].generated_text.trim();
-
-        document.getElementById('imageDisplay').innerHTML = `
-          <div style="background: linear-gradient(135deg, #FFE4E9 0%, #FFF0F5 100%); padding: 40px; border-radius: 15px;">
-            <p style="font-size: 18px; color: #333; line-height: 1.8;">
-              <strong>🎨 Your Magical Image Description:</strong><br><br>
-              ${description}
-            </p>
-            <p style="color: #666; font-size: 14px; margin-top: 20px;">
-              💡 Use this description with DALL-E, Stable Diffusion, or Midjourney to create the actual image!
-            </p>
-          </div>
-        `;
-        
-        document.getElementById('imageResult').classList.add('show');
-      } catch (error) {
-        let errorMsg = 'Error: ' + error.message;
-        if (error.message.includes('rate limit') || error.message.includes('loading')) {
-          errorMsg += '\n\n💡 Tip: The model is loading. Please wait 20-30 seconds and try again!';
-        }
-        alert(errorMsg);
-        console.error('Error:', error);
-      } finally {
-        document.getElementById('imageLoading').classList.remove('show');
-        document.getElementById('generateImageBtn').disabled = false;
-      }
-    }
-
     async function generateBoth() {
-      if (!apiKey) {
-        alert('Please setup your Hugging Face token first!');
-        return;
-      }
-
       const prompt = document.getElementById('bothPrompt').value;
       const age = document.getElementById('bothAgeGroup').value;
 
@@ -782,68 +619,17 @@
       document.getElementById('generateBothBtn').disabled = true;
 
       try {
-        // Generate story
-        const storyPrompt = `Write a children's story for ages ${age} based on: ${prompt}. Make it engaging, age-appropriate, educational, with simple language and a positive message. Around 300-400 words.`;
+        const storyPrompt = `Write a children's story for ages ${age}: ${prompt}. Make it engaging, fun, age-appropriate. Around 300-400 words.`;
+        const story = await callHuggingFace(storyPrompt, 600);
 
-        const storyResponse = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            inputs: storyPrompt,
-            parameters: {
-              max_new_tokens: 600,
-              temperature: 0.9,
-              return_full_text: false
-            }
-          })
-        });
+        const imagePrompt = `Describe a detailed, colorful illustration for children: ${prompt}. Include vivid colors, characters, scene, and mood.`;
+        const imageDesc = await callHuggingFace(imagePrompt, 400);
 
-        const storyData = await storyResponse.json();
-        if (storyData.error) throw new Error(storyData.error);
-        const story = storyData[0].generated_text.trim();
-
-        // Generate image description
-        const imagePrompt = `Describe in vivid detail a colorful, child-friendly illustration for: ${prompt}. Make it exciting and magical! Describe the scene, colors, characters, and mood.`;
-
-        const imageResponse = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            inputs: imagePrompt,
-            parameters: {
-              max_new_tokens: 400,
-              temperature: 0.9,
-              return_full_text: false
-            }
-          })
-        });
-
-        const imageData = await imageResponse.json();
-        if (imageData.error) throw new Error(imageData.error);
-        const imageDesc = imageData[0].generated_text.trim();
-
-        document.getElementById('bothImageDisplay').innerHTML = `
-          <div style="background: linear-gradient(135deg, #FFE4E9 0%, #FFF0F5 100%); padding: 40px; border-radius: 15px;">
-            <p style="font-size: 18px; color: #333; line-height: 1.8;">
-              <strong>🎨 Image Description:</strong><br><br>
-              ${imageDesc}
-            </p>
-          </div>
-        `;
-        document.getElementById('bothStoryDisplay').textContent = story;
+        document.getElementById('bothImageDisplay').innerHTML = `<strong>🎨 Image Description:</strong><br><br>${imageDesc}`;
+        document.getElementById('bothStoryDisplay').innerHTML = `<strong>📖 Story:</strong><br><br>${story}`;
         document.getElementById('bothResult').classList.add('show');
       } catch (error) {
-        let errorMsg = 'Error: ' + error.message;
-        if (error.message.includes('rate limit') || error.message.includes('loading')) {
-          errorMsg += '\n\n💡 Tip: The model is loading. Please wait 20-30 seconds and try again!';
-        }
-        alert(errorMsg);
+        alert('Error: ' + error.message + '\n\nMake sure you are running on localhost');
         console.error('Error:', error);
       } finally {
         document.getElementById('bothLoading').classList.remove('show');
@@ -854,42 +640,46 @@
     function downloadStory() {
       const story = document.getElementById('storyDisplay').textContent;
       const blob = new Blob([story], { type: 'text/plain' });
-      const url = window.URL.createObjectURL(blob);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'kids-story.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadImage() {
+      const content = document.getElementById('imageDisplay').textContent;
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
       a.download = 'image-description.txt';
-      document.body.appendChild(a);
       a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
+      URL.revokeObjectURL(url);
     }
 
     function downloadBothImage() {
       const content = document.getElementById('bothImageDisplay').textContent;
       const blob = new Blob([content], { type: 'text/plain' });
-      const url = window.URL.createObjectURL(blob);
+      const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
       a.download = 'image-description.txt';
-      document.body.appendChild(a);
       a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
+      URL.revokeObjectURL(url);
     }
 
     function downloadBothStory() {
       const story = document.getElementById('bothStoryDisplay').textContent;
       const blob = new Blob([story], { type: 'text/plain' });
-      const url = window.URL.createObjectURL(blob);
+      const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
       a.download = 'kids-story.txt';
-      document.body.appendChild(a);
       a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
+      URL.revokeObjectURL(url);
     }
   </script>
 </body>
-</html>;
-      
+</html>
